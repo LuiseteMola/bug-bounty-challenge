@@ -14,7 +14,8 @@ const Home = () => {
       title:
         'Console error: Warning: Each child in a list should have a unique "key" prop.',
       description:
-        "Hope you are able to find what is causing this error, as it is annoying."
+        "Hope you are able to find what is causing this error, as it is annoying.",
+      solution: 'On React, lists should have a unique "key" property for each item, so rendering performance is optimized. In this case we can simply use the index of the array as key.'
     },
     {
       icon: "🐞",
@@ -57,14 +58,25 @@ const Home = () => {
           {t("home.sidenote")}
         </Typography>
         <List>
-          {issues.map((issue) => (
-            <ListItem>
+          {issues.map((issue, idx) => (
+            <ListItem key={idx}>
               <Typography variant="h5" sx={{ p: 2 }}>
                 {issue.icon}
               </Typography>
               <ListItemText
                 primary={issue.title}
-                secondary={issue.description}
+                secondary={(
+                  <>
+                    <Typography variant="body2" color="textSecondary">
+                      {issue.description}
+                    </Typography>
+                    {issue.solution && (
+                      <Typography variant="caption" color="darkgreen">
+                        {issue.solution}
+                      </Typography>
+                    )}
+                  </>
+                )}
               />
             </ListItem>
           ))}
