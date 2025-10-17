@@ -16,7 +16,12 @@ const useCountDown = (totalSeconds: number) => {
         intervalRef.current = setInterval(() => {
             setCount((c) => c + 1);
         }, 1000);
-        return () => intervalRef.current && clearInterval(intervalRef.current);
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
     }, []);
 
     // Check for interval expiration

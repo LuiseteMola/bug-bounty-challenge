@@ -22,7 +22,7 @@ interface AvatarMenuProps {
 const getInitials = (user: User) => {
   if (user.firstName || user.lastName) {
     const initials = [user.firstName, user.lastName]
-      .map((_) => (_[0] ? _[0].toLocaleUpperCase() : _))
+      .map((_) => (_ && (_[0] ? _[0].toLocaleUpperCase() : _)))
       .join("");
     return initials;
   }
@@ -31,6 +31,14 @@ const getInitials = (user: User) => {
 
 const stringAvatar = (user: User) => {
   const initials = getInitials(user);
+
+  if (!initials || !user.firstName) {
+    return {
+      sx: { bgcolor: indigo[500], cursor: "pointer" },
+      children: "?"
+    }
+  }
+
   // 36 * 7 <= 255
   const r = Math.floor(parseInt(initials[0] ? initials[0] : "k", 36) * 7);
   const g = Math.floor(parseInt(initials[1] ? initials[1] : "l", 36) * 7);

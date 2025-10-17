@@ -59,7 +59,13 @@ const Home = () => {
       title: "Bonus 1: The App Header is getting redrawn every second.",
       description:
         "The countdown timer is making the complete app header to be redrawn. I've refactored the counter into a separate component to avoid the redraw of the title/language and profile components",
-    }
+    },
+    {
+      icon: "⭐️",
+      title: "Bonus 2: Updated react-scripts package and fixed all typescript issues.",
+      description:
+        "The application is using an old react-scripts version which doesn't enable strict mode correctly (compiled even there was a typo in the MobX store). I've updated the package and fixed all the typescript issues",
+    },
   ];
 
   return (
