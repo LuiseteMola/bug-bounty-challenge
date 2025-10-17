@@ -4,7 +4,7 @@ import {
   ActionResultStatus,
   ActionSuccess
 } from "../../../types/global";
-import { resultOrError, ResultOrErrorResponse } from "../../../utils/global";
+import { resultOrError } from "../../../utils/global";
 
 export interface User {
   firstName?: string;
@@ -22,7 +22,7 @@ export default class UserStore {
 
   // actions
   async getOwnUser() {
-    const [result, error] = (await resultOrError(
+    const [result, error] = (await resultOrError<User>(
       new Promise((resolve) =>
         setTimeout(
           () =>
@@ -34,7 +34,7 @@ export default class UserStore {
           500
         )
       )
-    )) as ResultOrErrorResponse<User>;
+    ));
 
     if (!!error) {
       return {
@@ -45,7 +45,7 @@ export default class UserStore {
 
     if (result) {
       runInAction(() => {
-        this.urser = result;
+        this.user = result;
       });
 
       return {

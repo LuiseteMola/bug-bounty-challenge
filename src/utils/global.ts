@@ -1,10 +1,10 @@
-export type ResultOrErrorResponse<T> = [T | null, Error | null];
+export type ResultOrErrorResponse<T, Q = Error> = [T | null, Q | null];
 
-export const resultOrError = async <T>(promise: Promise<T>) => {
+export async function resultOrError<T, Q = Error>(promise: Promise<T>): Promise<ResultOrErrorResponse<T, Q>> {
   try {
     const result: T = await promise;
     return [result, null];
   } catch (error) {
-    return [null, error];
+    return [null, error as Q];
   }
-};
+}
