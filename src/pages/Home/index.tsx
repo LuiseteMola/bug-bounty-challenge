@@ -51,7 +51,8 @@ const Home = () => {
       icon: "⭐️",
       title: "Optional: It would be great to be able to switch the language.",
       description:
-        "Please add a language select control in the app bar to swicth the UI language between english and german."
+        "Please add a language select control in the app bar to swicth the UI language between english and german.",
+      solution: 'Created a LanguageSelector component that switches languages using the i18n library. I added the icon flags into the translation modules'
     }
   ];
 
@@ -71,8 +72,8 @@ const Home = () => {
         </Typography>
         <List>
           {issues.map((issue, idx) => (
-            <ListItem key={idx}>
-              <Typography variant="h5" sx={{ p: 2 }}>
+            <ListItem key={idx} sx={{ display: 'flex', alignItems: 'start' }}>
+              <Typography variant="h5" sx={{ px: 2, pt: 1 }}>
                 {issue.icon}
               </Typography>
               <ListItemText
