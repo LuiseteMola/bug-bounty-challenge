@@ -37,7 +37,15 @@ const Home = () => {
       icon: "🐞",
       title: "Optional: Countdown is broken sometimes (hard to reproduce).",
       description:
-        "Some developers mentioned that the countdown in the app header behaves strange sometimes, but unfortunately they were not able to reproduce this glitch reliably, maybe you find the root cause."
+        "Some developers mentioned that the countdown in the app header behaves strange sometimes, but unfortunately they were not able to reproduce this glitch reliably, maybe you find the root cause.",
+      solution: `If the bug was reproduced only by developers, it means that is most probably related to hot-reloading during development. To reproduce:<br>
+      - Start the app in dev mode<br>
+      - Change some code in the AppHeader component<br>
+      - The coundown timer will start to be faster<br>
+      This is caused because the effect is called several times and the interval is not cleared correctly. Please, always clear your intervals, specially on the useEffect hooks!<br>
+      Also, there's another bug in the countdown. When the countdown reaches 0, it start to show negative values in the seconds.<br>
+      I refactored the logic into a new "useCountDown" hook and fixed the issue. We can test it by setting a low totalSeconds value. Also this hook can be extendable to handle the logic when the timer expires (now there's an "expired" flag, and the counter stops, but we could configure it to count forward the expired time, for example).
+      Also there's another effect in the hook that clears the interval when it's expired.`
     },
     {
       icon: "⭐️",
@@ -77,7 +85,9 @@ const Home = () => {
                     </Typography>
                     {issue.solution && (
                       <Typography variant="caption" color="darkgreen" component="div">
-                        {issue.solution}
+                        <Trans components={{ br: <br /> }}>
+                          {issue.solution}
+                        </Trans>
                       </Typography>
                     )}
                   </>

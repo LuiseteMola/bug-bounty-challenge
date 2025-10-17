@@ -1,10 +1,11 @@
 import { Grow, Box, Theme, Toolbar, Typography } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
+import useCountDown from "../../hooks/useCountDown";
 
 interface AppBarProps extends MuiAppBarProps {
   theme?: Theme;
@@ -33,20 +34,7 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) 
   const { user, pageTitle } = props;
   const { t } = useTranslation("app");
   const theme = useTheme();
-
-  const [count, setCount] = useState(0);
-  const hours = 1;
-  const minutes = hours * 60;
-  const seconds = minutes * 60;
-  const countdown = seconds - count;
-  const countdownMinutes = `${~~(countdown / 60)}`.padStart(2, "0");
-  const countdownSeconds = (countdown % 60).toFixed(0).padStart(2, "0");
-
-  useEffect(() => {
-    setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
-  }, []);
+  const { countdownMinutes, countdownSeconds } = useCountDown(3600); // 1 hour
 
   return (
     <AppBar ref={ref} position="fixed" sx={{ width: "100vw" }}>
