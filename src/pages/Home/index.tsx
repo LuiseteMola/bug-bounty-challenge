@@ -23,14 +23,15 @@ const Home = () => {
         'The word "known" should be displayed bold in the introduction text.',
       description:
         "When implementing a solution, please ensure to not change the i18n text.",
-        solution: 'We can use the <Trans> component from react-i18next to add markup to specific parts of the translation text without modifying the original i18n resource. In this case we want to setup every HTML tag coming from the translation. If we want a a more flexible (but dangerous) solution we could also use the "dangerouslySetInnerHTML" property inside the component.'
+      solution: 'We can use the <Trans> component from react-i18next to add markup to specific parts of the translation text without modifying the original i18n resource. In this case we want to setup every HTML tag coming from the translation. If we want a a more flexible (but dangerous) solution we could also use the "dangerouslySetInnerHTML" property inside the component.'
     },
     {
       icon: "🐞",
       title:
         "User avatar in app bar is missing, although user should be fetched on app start correctly.",
       description:
-        "On app start we load the current user object via a MobX store, but for any reason the user avatar is not displayed in the top right of the app bar. Attention: When solving this issue, you might will be confronted with a second bug."
+        "On app start we load the current user object via a MobX store, but for any reason the user avatar is not displayed in the top right of the app bar. Attention: When solving this issue, you might will be confronted with a second bug.",
+      solution: 'There was a typo on the MobX store. After it, we needed to fix the AvatarMenu component to forward the ref correctly in their root div element, so the avatar is displayed.'
     },
     {
       icon: "🐞",
@@ -54,7 +55,7 @@ const Home = () => {
         </Typography>
         <Typography variant="subtitle1" textAlign="center">
           <Trans
-            components={{ b: <strong />}}
+            components={{ b: <strong /> }}
           >{t("home.intro")}{" "}</Trans>
         </Typography>
         <Typography variant="body2" textAlign="center" color="textSecondary">
@@ -68,13 +69,14 @@ const Home = () => {
               </Typography>
               <ListItemText
                 primary={issue.title}
+                secondaryTypographyProps={{ component: 'div' }}
                 secondary={(
                   <>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" component="div">
                       {issue.description}
                     </Typography>
                     {issue.solution && (
-                      <Typography variant="caption" color="darkgreen">
+                      <Typography variant="caption" color="darkgreen" component="div">
                         {issue.solution}
                       </Typography>
                     )}
