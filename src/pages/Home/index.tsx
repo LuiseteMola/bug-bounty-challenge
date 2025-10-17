@@ -53,6 +53,12 @@ const Home = () => {
       description:
         "Please add a language select control in the app bar to swicth the UI language between english and german.",
       solution: 'Created a LanguageSelector component that switches languages using the i18n library. I added the icon flags into the translation modules'
+    },
+    {
+      icon: "⭐️",
+      title: "Bonus 1: The App Header is getting redrawn every second.",
+      description:
+        "The countdown timer is making the complete app header to be redrawn. I've refactored the counter into a separate component to avoid the redraw of the title/language and profile components",
     }
   ];
 

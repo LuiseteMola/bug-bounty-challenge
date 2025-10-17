@@ -5,8 +5,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
-import useCountDown from "../../hooks/useCountDown";
 import LanguageSelector from "../LanguageSelector";
+import CountDownTimer from "../CountDown";
 
 interface AppBarProps extends MuiAppBarProps {
   theme?: Theme;
@@ -35,17 +35,12 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) 
   const { user, pageTitle } = props;
   const { t } = useTranslation("app");
   const theme = useTheme();
-  const { countdownMinutes, countdownSeconds } = useCountDown(3600); // 1 hour
 
   return (
     <AppBar ref={ref} position="fixed" sx={{ width: "100vw" }}>
       <Toolbar sx={{ background: "#08140C 0% 0% no-repeat padding-box" }}>
         <Box sx={{ width: "100%", flexDirection: "row", display: "flex" }}>
-          <Box>
-            <Typography variant="h6" component="div" color="primary">
-              {countdownMinutes}:{countdownSeconds}
-            </Typography>
-          </Box>
+          <CountDownTimer />
           <Box sx={{ width: 20, height: 20, flex: 1 }} />
           <Box sx={{ flex: 2 }}>
             <Typography
