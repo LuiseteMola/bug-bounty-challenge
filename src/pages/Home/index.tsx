@@ -4,7 +4,7 @@ import React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const Home = () => {
   const { t } = useTranslation("app");
@@ -22,7 +22,8 @@ const Home = () => {
       title:
         'The word "known" should be displayed bold in the introduction text.',
       description:
-        "When implementing a solution, please ensure to not change the i18n text."
+        "When implementing a solution, please ensure to not change the i18n text.",
+        solution: 'We can use the <Trans> component from react-i18next to add markup to specific parts of the translation text without modifying the original i18n resource. In this case we want to setup every HTML tag coming from the translation. If we want a a more flexible (but dangerous) solution we could also use the "dangerouslySetInnerHTML" property inside the component.'
     },
     {
       icon: "🐞",
@@ -52,7 +53,9 @@ const Home = () => {
           {t("home.welcome")}
         </Typography>
         <Typography variant="subtitle1" textAlign="center">
-          {t("home.intro")}{" "}
+          <Trans
+            components={{ b: <strong />}}
+          >{t("home.intro")}{" "}</Trans>
         </Typography>
         <Typography variant="body2" textAlign="center" color="textSecondary">
           {t("home.sidenote")}
